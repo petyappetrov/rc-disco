@@ -1,15 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import BackgroundDisco from '../index'
+import Disco from '../src'
 
-class App extends React.Component {
-  render () {
-    return (
-      <div>
-        <BackgroundDisco />
-      </div>
-    )
-  }
-}
+const App = () =>
+  <div>
+    <Disco />
+  </div>
 
 ReactDOM.render(<App />, document.getElementById('root'))

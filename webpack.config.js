@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
-    port: 3000
+    port: 8888
   },
   devtool: 'eval-source-map',
   entry: {
@@ -23,9 +23,9 @@ module.exports = {
         use: [
           'babel-loader'
         ],
-        exclude: /node_modules/,
+        exclude: /node_modules/
       }
-    ],
+    ]
   },
   resolve: {
     extensions: ['.js'],
@@ -38,8 +38,9 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
-        template: require('html-webpack-template'),
-        appMountId: 'root'
-      })
+      inject: false,
+      template: require('html-webpack-template'),
+      appMountId: 'root'
+    })
   ]
 }

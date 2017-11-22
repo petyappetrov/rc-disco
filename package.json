@@ -6,10 +6,11 @@
   "scripts": {
     "test": "",
     "clean": "rimraf ./dist/**",
-    "build": "npm run clean && babel ./index.js --out-dir ./dist",
+    "build": "npm run clean && babel ./src --out-dir dist",
     "start": "npm run clean && webpack-dev-server --progress --hot",
     "prepublish": "npm run build",
-    "release": "np"
+    "postpublish": "npm run clean",
+    "release": "npm run clean && np"
   },
   "repository": {
     "type": "git",
