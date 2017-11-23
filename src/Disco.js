@@ -20,13 +20,21 @@ const Layout = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: ${p => `
-    linear-gradient(
-      ${p.deg}deg,
-      ${p.gradient.colors[0]} 0%,
-      ${p.gradient.colors[1]} 100%
-    );
-  `}
+
+  ${p => {
+    const colors = p.gradient.colors.reduce((prev, curr, index, array) => {
+      if (!prev) {
+        return `${curr} 0%`
+      }
+      return `${prev}, ${curr} ${100 / (array.length - index)}%`
+    }, '')
+    return `
+      background: linear-gradient(
+        ${p.deg}deg,
+        ${colors}
+      );
+    `
+  }}
   opacity: ${p => p.opacity};
 `
 
