@@ -7,8 +7,8 @@ import './global-styles'
 ReactDOM.render(
   <Disco
     duration={{
-      min: 1000,
-      max: 2000
+      min: 500,
+      max: 1000
     }}
   />,
   document.getElementById('root')

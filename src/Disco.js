@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import gradients from './gradients.json'
+import gradients from '../gradients.json'
 import { getRandomInt, getRandomIntInRange } from './utils'
 
 const Gradient = styled.div`
@@ -51,21 +51,24 @@ class Disco extends React.Component {
     this.state = {
       front: this.getGradient(),
       back: this.getGradient(),
-      opacity: 1
+      opacity: 0
     }
   }
 
   componentDidMount () {
-    this.start()
-    ReactDOM.findDOMNode(this.front).addEventListener('transitionend', this.nextGradient)
+    this.inititilize()
   }
 
   componentWillUnmount () {
-    ReactDOM.findDOMNode(this.front).removeEventListener('transitionend', this.nextGradient)
+    this.frontNode.removeEventListener('transitionend', this.nextGradient)
   }
 
-  start = () => {
-    setTimeout(() => this.nextGradient(), 0)
+  inititilize = () => {
+    setTimeout(() => {
+      this.nextGradient()
+      this.frontNode = ReactDOM.findDOMNode(this.front)
+      this.frontNode.addEventListener('transitionend', this.nextGradient)
+    }, 0)
   }
 
   nextGradient = () => {
