@@ -32,6 +32,10 @@ const Layout = styled.div`
 
 class Disco extends React.Component {
   static propTypes = {
+    children: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.node),
+      PropTypes.node
+    ]),
     duration: PropTypes.shape({
       min: PropTypes.number,
       max: PropTypes.number
@@ -113,6 +117,7 @@ class Disco extends React.Component {
           ref={el => (this.front = el)}
           opacity={opacity}
         />
+        {this.props.children && this.props.children}
       </Gradient>
     )
   }
