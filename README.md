@@ -21,6 +21,7 @@
     </Disco>
 
 ## Example
+* [Demo](https://petyappetrov.github.io/rc-disco/)
 * [Code](https://github.com/petyappetrov/rc-disco/tree/master/example)
 
 
