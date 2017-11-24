@@ -32,8 +32,14 @@ export const colorDetector = (color) => {
   if (hue < 210) {
     return 'cyan'
   }
+  if (hue < 270 && (lgt / 100) < 0.3) {
+    return 'darkblue'
+  }
   if (hue < 270) {
     return 'blue'
+  }
+  if (hue < 320 && (lgt / 100) < 0.3) {
+    return 'darkmagenta'
   }
   if (hue < 330) {
     return 'magenta'

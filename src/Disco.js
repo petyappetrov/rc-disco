@@ -129,7 +129,11 @@ class Disco extends React.Component {
           ref={el => (this.front = el)}
           opacity={opacity}
         />
-        {this.props.children && this.props.children}
+        {this.props.children &&
+          <Gradient>
+            {this.props.children}
+          </Gradient>
+        }
       </Gradient>
     )
   }
