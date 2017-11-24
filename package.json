@@ -1,6 +1,6 @@
 {
   "name": "rc-disco",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "react background animation",
   "main": "dist/index.js",
   "scripts": {
