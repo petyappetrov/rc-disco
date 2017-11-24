@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import gradients from '../gradients.json'
-import { getRandomInt, getRandomIntInRange } from './utils'
+import { getRandomInt, getRandomIntInRange, colorDetector } from './utils'
 
 const Gradient = styled.div`
   position: relative;
@@ -20,21 +20,12 @@ const Layout = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-
-  ${p => {
-    const colors = p.gradient.colors.reduce((prev, curr, index, array) => {
-      if (!prev) {
-        return `${curr} 0%`
-      }
-      return `${prev}, ${curr} ${100 / (array.length - index)}%`
-    }, '')
-    return `
-      background: linear-gradient(
-        ${p.deg}deg,
-        ${colors}
-      );
-    `
-  }}
+  background: ${p => `
+    linear-gradient(
+      ${p.deg}deg,
+      ${p.gradient.colors}
+    );
+  `}
   opacity: ${p => p.opacity};
 `
 
@@ -47,19 +38,21 @@ class Disco extends React.Component {
     duration: PropTypes.shape({
       min: PropTypes.number,
       max: PropTypes.number
-    })
+    }),
+    palletes: PropTypes.arrayOf(PropTypes.string)
   }
 
   static defaultProps = {
     duration: {
       min: 2000,
       max: 5000
-    }
+    },
+    palletes: null
   }
 
   constructor (props) {
     super(props)
-    this.gradients = gradients
+    this.gradients = this.generateGradients()
     this.state = {
       front: this.getGradient(),
       back: this.getGradient(),
@@ -83,6 +76,17 @@ class Disco extends React.Component {
     }, 0)
   }
 
+  generateGradients = () => {
+    if (this.props.palletes) {
+      return gradients.filter(gradient =>
+        gradient.colors.some(color =>
+          this.props.palletes.indexOf(colorDetector(color)) !== -1
+        )
+      )
+    }
+    return gradients
+  }
+
   nextGradient = () => {
     this.setState(state => {
       if (state.opacity) {
@@ -100,7 +104,7 @@ class Disco extends React.Component {
 
   getGradient = () => {
     if (!this.gradients.length) {
-      this.gradients = gradients
+      this.gradients = this.generateGradients()
     }
     const gradient = this.gradients[getRandomInt(this.gradients.length)]
     const duration = getRandomIntInRange(this.props.duration.min, this.props.duration.max)

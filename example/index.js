@@ -81,6 +81,12 @@ class App extends React.Component {
           min: this.state.min,
           max: this.state.max
         }}
+        palletes={[
+          'black',
+          'orange',
+          'blue',
+          'magenta'
+        ]}
       >
         <Sliders>
           <Text>Disco</Text>
