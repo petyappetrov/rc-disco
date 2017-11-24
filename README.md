@@ -10,6 +10,8 @@
     npm install --save rc-dicso
 
 ## Usage
+    import Disco from 'rc-disco'
+    
     <Disco
       duration={{
         min: 1000,
