@@ -3,7 +3,6 @@
 
 ## Features
   * [React](https://reactjs.org/)
-  * [Styled-components](https://styled-components.com)
   * [UI-Gradients](https://uigradients.com)
 
 ## Installation
@@ -11,7 +10,7 @@
 
 ## Usage
     import Disco from 'rc-disco'
-    
+
     <Disco
       duration={{
         min: 1000,

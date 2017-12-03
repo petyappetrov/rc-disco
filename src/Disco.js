@@ -1,33 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import Layout from './Layout'
+import styles from './styles'
 import gradients from '../gradients.json'
 import { getRandomInt, getRandomIntInRange, colorDetector } from './utils'
-
-const Gradient = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-`
-
-const Layout = styled.div`
-  transition-property: opacity;
-  transition-duration: ${p => p.duration}ms;
-  transition-timing-function: linear;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: ${p => `
-    linear-gradient(
-      ${p.deg}deg,
-      ${p.gradient.colors}
-    );
-  `}
-  opacity: ${p => p.opacity};
-`
 
 class Disco extends React.Component {
   static propTypes = {
@@ -77,11 +54,10 @@ class Disco extends React.Component {
   }
 
   generateGradients = () => {
-    if (this.props.palletes) {
+    const { palletes } = this.props
+    if (palletes) {
       return gradients.filter(gradient =>
-        gradient.colors.some(color =>
-          this.props.palletes.indexOf(colorDetector(color)) !== -1
-        )
+        gradient.colors.some(color => palletes.includes(colorDetector(color)))
       )
     }
     return gradients
@@ -109,9 +85,7 @@ class Disco extends React.Component {
     const gradient = this.gradients[getRandomInt(this.gradients.length)]
     const duration = getRandomIntInRange(this.props.duration.min, this.props.duration.max)
     const deg = getRandomInt(360)
-
     this.gradients = this.gradients.filter(g => g.name !== gradient.name)
-
     return {
       gradient,
       duration,
@@ -122,19 +96,21 @@ class Disco extends React.Component {
   render () {
     const { back, front, opacity } = this.state
     return (
-      <Gradient>
-        <Layout {...back} />
+      <div style={styles.overlay}>
+        <Layout gradient={back.gradient} />
         <Layout
-          {...front}
-          ref={el => (this.front = el)}
+          gradient={front.gradient}
+          deg={front.deg}
+          duration={front.duration}
+          layoutRef={el => (this.front = el)}
           opacity={opacity}
         />
         {this.props.children &&
-          <Gradient>
+          <div style={{ position: 'relative' }}>
             {this.props.children}
-          </Gradient>
+          </div>
         }
-      </Gradient>
+      </div>
     )
   }
 }
