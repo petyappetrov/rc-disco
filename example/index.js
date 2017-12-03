@@ -51,8 +51,8 @@ class App extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      min: 500,
-      max: 1000
+      min: 3000,
+      max: 5000
     }
   }
 
@@ -82,8 +82,8 @@ class App extends React.Component {
           max: this.state.max
         }}
         palletes={[
-          'darkblue',
-          'darkmagenta'
+          'blue',
+          'magenta'
         ]}
       >
         <Sliders>

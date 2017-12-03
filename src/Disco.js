@@ -97,7 +97,10 @@ class Disco extends React.Component {
     const { back, front, opacity } = this.state
     return (
       <div style={styles.overlay}>
-        <Layout gradient={back.gradient} />
+        <Layout
+          gradient={back.gradient}
+          deg={back.deg}
+        />
         <Layout
           gradient={front.gradient}
           deg={front.deg}
