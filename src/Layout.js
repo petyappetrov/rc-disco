@@ -4,13 +4,13 @@ import styles from './styles'
 
 const Layout = ({
   opacity,
-  layoutRef,
   duration,
   deg,
-  gradient
+  gradient,
+  onTransitionEnd
 }) =>
   <div
-    ref={layoutRef}
+    onTransitionEnd={onTransitionEnd}
     style={{
       ...styles.layout,
       opacity: opacity,
@@ -20,7 +20,7 @@ const Layout = ({
   />
 
 Layout.propTypes = {
-  layoutRef: PropTypes.func,
+  onTransitionEnd: PropTypes.func,
   opacity: PropTypes.number,
   duration: PropTypes.number,
   deg: PropTypes.number,

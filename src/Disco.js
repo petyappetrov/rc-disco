@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import Layout from './Layout'
 import styles from './styles'
@@ -38,19 +37,7 @@ class Disco extends React.Component {
   }
 
   componentDidMount () {
-    this.inititilize()
-  }
-
-  componentWillUnmount () {
-    this.frontNode.removeEventListener('transitionend', this.nextGradient)
-  }
-
-  inititilize = () => {
-    setTimeout(() => {
-      this.nextGradient()
-      this.frontNode = ReactDOM.findDOMNode(this.front)
-      this.frontNode.addEventListener('transitionend', this.nextGradient)
-    }, 0)
+    setTimeout(this.nextGradient, 0)
   }
 
   generateGradients = () => {
@@ -82,10 +69,12 @@ class Disco extends React.Component {
     if (!this.gradients.length) {
       this.gradients = this.generateGradients()
     }
+
     const gradient = this.gradients[getRandomInt(this.gradients.length)]
     const duration = getRandomIntInRange(this.props.duration.min, this.props.duration.max)
     const deg = getRandomInt(360)
     this.gradients = this.gradients.filter(g => g.name !== gradient.name)
+
     return {
       gradient,
       duration,
@@ -105,7 +94,7 @@ class Disco extends React.Component {
           gradient={front.gradient}
           deg={front.deg}
           duration={front.duration}
-          layoutRef={el => (this.front = el)}
+          onTransitionEnd={this.nextGradient}
           opacity={opacity}
         />
         {this.props.children &&
